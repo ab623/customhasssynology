@@ -11,7 +11,7 @@ source_temp_target="$root/synology_dsm_temp"
 
 # Replace with your desired target directory
 components_dir="$root/custom_components"
-target_dir="$components_dir/synology_dsm"
+target_dir="$components_dir/custom_synology_dsm"
 
 
 # Stage 0 - Check tools and clean environment
@@ -39,7 +39,7 @@ fi
 echo "Clone Successful"
 
 # Stage 2 - Build the folder structure required.
-mv "$source_temp_target/$repo_folder" "$components_dir/"
+mv "$source_temp_target/$repo_folder" "$target_dir/"
 rm -rf $source_temp_target
 
 # Stage 3 - Edit the Files
