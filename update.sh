@@ -60,6 +60,8 @@ jq '.domain = "custom_synology_dsm"' "$target_dir/manifest.json" > "$target_dir/
 mv "$target_dir/manifest.json.tmp" "$target_dir/manifest.json"
 jq '.codeowners = ["@ab623"]' "$target_dir/manifest.json" > "$target_dir/manifest.json.tmp"
 mv "$target_dir/manifest.json.tmp" "$target_dir/manifest.json"
+jq '.issuetracker = "https://github.com/ab623/customhasssynology/issues"' "$target_dir/manifest.json" > "$target_dir/manifest.json.tmp"
+mv "$target_dir/manifest.json.tmp" "$target_dir/manifest.json"
 
 # Update the __init__.py
 echo "Updating __init__.py"
