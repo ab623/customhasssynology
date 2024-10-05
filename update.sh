@@ -67,4 +67,13 @@ mv "$target_dir/manifest.json.tmp" "$target_dir/manifest.json"
 echo "Updating __init__.py"
 sed -i '/api = SynoApi/a\ \ \ \ api._with_security = False' "$target_dir/__init__.py"
 
+# Update the const.py
+echo "Updating const.py"
+sed -i 's/DOMAIN =.*/DOMAIN = "custom_synology_dsm"/' "$target_dir/const.py"
+
+# Create the translations
+echo "Creating translation files."
+mkdir -p "$target_dir/translations"
+cp "$root/en.json" "$target_dir/translations/en.json"
+
 echo "Success!!"
