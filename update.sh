@@ -29,6 +29,7 @@ echo "Cloneing git repo $repo_url:$repo_branch"
 git clone --depth 1 --filter=blob:none --sparse $repo_url $source_temp_target > /dev/null 2>&1
 cd $source_temp_target
 git sparse-checkout add $repo_folder > /dev/null 2>&1
+cd $root
 
 # Check if cloning was successful
 if [[ $? -ne 0 ]]; then
@@ -43,9 +44,21 @@ mv "$source_temp_target/$repo_folder" "$target_dir/"
 rm -rf $source_temp_target
 
 # Stage 3 - Edit the Files
-# Update the manifest.json
+# Stage 3a - Bump the version
+. $root/bump_version.sh
+ver=$(cat $root/version.txt)
+
+# Update the manifest.json with version
 echo "Updating manifest.json"
-jq '. | .version = "1.0.0"' "$target_dir/manifest.json" > "$target_dir/manifest.json.tmp"
+VER="1.0.$ver" jq '. | .version = env.VER' "$target_dir/manifest.json" > "$target_dir/manifest.json.tmp"
+mv "$target_dir/manifest.json.tmp" "$target_dir/manifest.json"
+
+# Update the manifest with other info.
+jq '.name = "Custom Synology DSM"' "$target_dir/manifest.json" > "$target_dir/manifest.json.tmp"
+mv "$target_dir/manifest.json.tmp" "$target_dir/manifest.json"
+jq '.domain = "custom_synology_dsm"' "$target_dir/manifest.json" > "$target_dir/manifest.json.tmp"
+mv "$target_dir/manifest.json.tmp" "$target_dir/manifest.json"
+jq '.codeowners = ["@ab623"]' "$target_dir/manifest.json" > "$target_dir/manifest.json.tmp"
 mv "$target_dir/manifest.json.tmp" "$target_dir/manifest.json"
 
 # Update the __init__.py

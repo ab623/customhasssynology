@@ -1,10 +1,8 @@
 {
-  "domain": "synology_dsm",
-  "name": "Synology DSM",
+  "domain": "custom_synology_dsm",
+  "name": "Custom Synology DSM",
   "codeowners": [
-    "@hacf-fr",
-    "@Quentame",
-    "@mib1185"
+    "@ab623"
   ],
   "config_flow": true,
   "dependencies": [
@@ -32,5 +30,5 @@
       }
     }
   ],
-  "version": "1.0.0"
+  "version": "1.0.11"
 }
