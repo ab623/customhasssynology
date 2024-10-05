@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DOMAIN="synology_dsm"
+
 # Get current folder
 root=$(pwd)
 
@@ -11,7 +13,7 @@ source_temp_target="$root/synology_dsm_temp"
 
 # Replace with your desired target directory
 components_dir="$root/custom_components"
-target_dir="$components_dir/custom_synology_dsm"
+target_dir="$components_dir/$DOMAIN"
 
 
 # Stage 0 - Check tools and clean environment
@@ -56,7 +58,7 @@ mv "$target_dir/manifest.json.tmp" "$target_dir/manifest.json"
 # Update the manifest with other info.
 jq '.name = "Custom Synology DSM"' "$target_dir/manifest.json" > "$target_dir/manifest.json.tmp"
 mv "$target_dir/manifest.json.tmp" "$target_dir/manifest.json"
-jq '.domain = "custom_synology_dsm"' "$target_dir/manifest.json" > "$target_dir/manifest.json.tmp"
+DOMAIN="$DOMAIN" jq '.domain = env.DOMAIN' "$target_dir/manifest.json" > "$target_dir/manifest.json.tmp"
 mv "$target_dir/manifest.json.tmp" "$target_dir/manifest.json"
 jq '.codeowners = ["@ab623"]' "$target_dir/manifest.json" > "$target_dir/manifest.json.tmp"
 mv "$target_dir/manifest.json.tmp" "$target_dir/manifest.json"
@@ -69,7 +71,7 @@ sed -i '/api = SynoApi/a\ \ \ \ api._with_security = False' "$target_dir/__init_
 
 # Update the const.py
 echo "Updating const.py"
-sed -i 's/DOMAIN =.*/DOMAIN = "custom_synology_dsm"/' "$target_dir/const.py"
+sed -i "s/DOMAIN =.*/DOMAIN = \"$DOMAIN\"/" "$target_dir/const.py"
 
 # Create the translations
 echo "Creating translation files."

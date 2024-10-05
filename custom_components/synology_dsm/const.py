@@ -16,7 +16,7 @@ from synology_dsm.exceptions import (
 
 from homeassistant.const import Platform
 
-DOMAIN = "custom_synology_dsm"
+DOMAIN = "synology_dsm"
 ATTRIBUTION = "Data provided by Synology"
 PLATFORMS = [
     Platform.BINARY_SENSOR,

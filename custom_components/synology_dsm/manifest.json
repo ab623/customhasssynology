@@ -1,5 +1,5 @@
 {
-  "domain": "custom_synology_dsm",
+  "domain": "synology_dsm",
   "name": "Custom Synology DSM",
   "codeowners": [
     "@ab623"
